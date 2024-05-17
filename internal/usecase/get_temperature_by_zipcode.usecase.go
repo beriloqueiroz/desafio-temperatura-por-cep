@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"errors"
 
 	"github.com/beriloqueiroz/desafio-temperatura-por-cep/internal/entity"
 )
@@ -25,7 +26,7 @@ func (uc *GetTemperByZipCodeUseCase) execute(ctx context.Context, zipCode string
 	}
 	location, err := uc.LocationGateway.GetLocationByZipCode(ctx, zipCode)
 	if err != nil {
-		return output, err
+		return output, errors.New("can not find zipcode")
 	}
 	temperature, err := uc.TemperatureGateway.GetTemperatureByLocation(ctx, location)
 	if err != nil {
