@@ -18,7 +18,7 @@ func TesteExecuteUseCase(t *testing.T) {
 		LocationGateway:    mockLocationGateway,
 		TemperatureGateway: mockTemperatureGateway,
 	}
-	output, err := usecase.execute(context.Background(), "60541646")
+	output, err := usecase.Execute(context.Background(), "60541646")
 	assert.Nil(t, err)
 	assert.InDelta(t, 10.5, output.TempC, 0.00001)
 	assert.InDelta(t, 50.9, output.TempF, 0.00001)
@@ -33,7 +33,7 @@ func TesteExecuteUseCaseWhenInvalidZipCode(t *testing.T) {
 		LocationGateway:    mockLocationGateway,
 		TemperatureGateway: mockTemperatureGateway,
 	}
-	output, err := usecase.execute(context.Background(), "60541646")
+	output, err := usecase.Execute(context.Background(), "60541646")
 	assert.Nil(t, output)
 	assert.NotNil(t, err)
 	assert.EqualError(t, err, "invalid zipcode")
@@ -48,7 +48,7 @@ func TesteExecuteUseCaseWhenNotFoundZipCode(t *testing.T) {
 		LocationGateway:    mockLocationGateway,
 		TemperatureGateway: mockTemperatureGateway,
 	}
-	output, err := usecase.execute(context.Background(), "60541646")
+	output, err := usecase.Execute(context.Background(), "60541646")
 	assert.Nil(t, output)
 	assert.NotNil(t, err)
 	assert.EqualError(t, err, "can not find zipcode")
