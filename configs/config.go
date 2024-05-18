@@ -3,11 +3,9 @@ package config
 import "github.com/spf13/viper"
 
 type conf struct {
-	DBUri               string `mapstructure:"DB_URI"`
-	DBDatabase          string `mapstructure:"DB_DATABASE"`
-	DBSessionCollection string `mapstructure:"DB_SESSION_COLLECTION"`
-	DBPatientCollection string `mapstructure:"DB_PATIENT_COLLECTION"`
-	WebServerPort       string `mapstructure:"WEB_SERVER_PORT"`
+	TempBaseUrl   string `mapstructure:"TEMP_BASE_URL"`
+	TempApiKey    string `mapstructure:"TEMP_API_KEY"`
+	WebServerPort string `mapstructure:"WEB_SERVER_PORT"`
 }
 
 func LoadConfig(paths []string) (*conf, error) {

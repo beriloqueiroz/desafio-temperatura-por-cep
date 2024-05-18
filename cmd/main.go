@@ -25,7 +25,9 @@ func main() {
 		Ctx: initCtx,
 	}
 	temperatureGateway := &gateways.GetTemperatureGatewayImpl{
-		Ctx: initCtx,
+		Ctx:     initCtx,
+		BaseUrl: configs.TempBaseUrl,
+		Key:     configs.TempApiKey,
 	}
 
 	getTemperUseCase := usecase.NewGetTemperByZipCodeUseCase(
