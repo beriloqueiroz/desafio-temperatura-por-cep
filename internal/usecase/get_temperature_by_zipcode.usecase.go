@@ -18,6 +18,13 @@ type GetTemperByZipCodeUseCaseOutput struct {
 	TempK float64 `json:"temp_K"`
 }
 
+func NewGetTemperByZipCodeUseCase(locationGateway LocationGateway, temperatureGateway TemperatureGateway) *GetTemperByZipCodeUseCase {
+	return &GetTemperByZipCodeUseCase{
+		LocationGateway:    locationGateway,
+		TemperatureGateway: temperatureGateway,
+	}
+}
+
 func (uc *GetTemperByZipCodeUseCase) Execute(ctx context.Context, zipCode string) (GetTemperByZipCodeUseCaseOutput, error) {
 	output := GetTemperByZipCodeUseCaseOutput{}
 	zipCodeObj, err := entity.NewZipCode(zipCode)
