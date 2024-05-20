@@ -2,16 +2,11 @@ version: '3.8'
 
 services:
   app:
+    image: beriloqueiroz/desafio-temperatura-por-cep:latest
     build: 
       context: ./
       dockerfile: "Dockerfile"
     restart: always
     container_name: desafio-temperatura
     ports:
-      - "8001:8001"
-    networks:
-      - my-net
-
-networks:
-  my-net:
-    driver: bridge
+      - "8080:8080"
