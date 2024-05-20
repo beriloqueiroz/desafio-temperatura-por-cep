@@ -13,6 +13,6 @@
   ```
 
 - link do Google Cloud Run
-  - <[https://sdaskndasndasdas.d.ask.d](https://desafio-temperatura-por-cep-dos4clluiq-uc.a.run.app)>
+  - <https://desafio-temperatura-por-cep-dos4clluiq-uc.a.run.app>
   - exemplo:
     - <https://desafio-temperatura-por-cep-dos4clluiq-uc.a.run.app/?cep=60541646>
