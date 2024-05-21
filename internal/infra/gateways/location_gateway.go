@@ -3,6 +3,7 @@ package gateways
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 )
@@ -21,6 +22,7 @@ type viaCEP struct {
 	Unidade     string `json:"unidade"`
 	Ibge        string `json:"ibge"`
 	Gia         string `json:"gia"`
+	HasError    bool   `json:"erro"`
 }
 
 func (gt *GetLocationGatewayImpl) GetLocationByZipCode(ctx context.Context, zipCode string) (string, error) {
@@ -33,19 +35,22 @@ func (gt *GetLocationGatewayImpl) GetLocationByZipCode(ctx context.Context, zipC
 }
 
 func buscaCep(cep string) (*viaCEP, error) {
-	resp, error := http.Get("https://viacep.com.br/ws/" + cep + "/json/")
-	if error != nil {
-		return nil, error
+	resp, err := http.Get("https://viacep.com.br/ws/" + cep + "/json/")
+	if err != nil {
+		return nil, err
 	}
 	defer resp.Body.Close()
-	body, error := io.ReadAll(resp.Body)
-	if error != nil {
-		return nil, error
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
 	}
 	var c viaCEP
-	error = json.Unmarshal(body, &c)
-	if error != nil {
-		return nil, error
+	err = json.Unmarshal(body, &c)
+	if err != nil {
+		return nil, err
+	}
+	if c.HasError {
+		return nil, errors.New("can not find zipcode")
 	}
 	return &c, nil
 }

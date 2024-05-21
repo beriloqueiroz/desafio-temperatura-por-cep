@@ -31,22 +31,22 @@ func (gt *GetTemperatureGatewayImpl) buscaTemp(city string) (*temperatureInfo, e
 		return nil, err
 	}
 	req.Header.Set("accept", "application/json")
-	resp, error := http.DefaultClient.Do(req)
-	if error != nil {
-		return nil, error
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
 	}
 	defer resp.Body.Close()
-	body, error := io.ReadAll(resp.Body)
-	if error != nil {
-		return nil, error
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
 	}
 	var t temperatureInfo
-	error = json.Unmarshal(body, &t)
-	fmt.Println(error)
+	err = json.Unmarshal(body, &t)
+	fmt.Println(err)
 	fmt.Println(t)
 
-	if error != nil {
-		return nil, error
+	if err != nil {
+		return nil, err
 	}
 	return &t, nil
 }
